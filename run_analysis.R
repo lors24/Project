@@ -36,12 +36,13 @@ train <- cbind(subject_train,y_train,x_train)
 data <- rbind(test,train)
 names(data)<-c("subject","activity",features)
 
-a<-agrep(c("mean"),names(data))
-b<-agrep(c("std"),names(data))
-cols<-c(a,b) #con angulos
-cols<-cols[-(47:53)] #sin angulos
+a<-agrep("mean",names(data))
+b<-agrep("std",names(data))
+d<-agrep("meanFreq",names(data)) ##exclude mean frequencies
+e <- agrep("angle",names(data))  ##exclude angles
+cols <- c(a,b)[!c(a,b) %in% c(d,e)]
+
+## Keep right columns
 
 data2 <- data[,c(1,2,cols)]
-head(data2)
-o <- order(data2[data2$subject])
 o <- data2[order(data2$subject,data$activity),]
