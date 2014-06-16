@@ -1,5 +1,5 @@
 getwd()
-setwd("./Documents/Coursera/Cleaning/Project")
+setwd("./Documents/Coursera/Cleaning/Project2")
 dir()
 
 ## The experiments have been carried out with a group of 30 volunteers
@@ -16,14 +16,14 @@ features <- read.table("./UCI HAR Dataset/features.txt",as.is=T)
 features <- features[,2]
 
 ## test set
-x_test<-read.table("./UCI HAR Dataset/test/X_test.txt")
-y_test<-read.table("./UCI HAR Dataset/test/Y_test.txt")
-subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt")
+x_test<-read.table("./UCI HAR Dataset/test/X_test.txt",as.is=T)
+y_test<-read.table("./UCI HAR Dataset/test/Y_test.txt",as.is=T)
+subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",as.is=T)
 
 ## train set
-x_train<-read.table("./UCI HAR Dataset/train/X_train.txt")
-y_train<-read.table("./UCI HAR Dataset/train/Y_train.txt")
-subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt")
+x_train<-read.table("./UCI HAR Dataset/train/X_train.txt",as.is=T)
+y_train<-read.table("./UCI HAR Dataset/train/Y_train.txt",as.is=T)
+subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt",as.is=T)
 
 ## test 
 test <- cbind(subject_test,y_test,x_test)
@@ -36,13 +36,6 @@ train <- cbind(subject_train,y_train,x_train)
 data <- rbind(test,train)
 names(data)<-c("subject","activity",features)
 
-c(3:8,43:48,83:)
-
-c(3:84,5,6,7,8,43,44,45,46,47,48,49,83,84,85,)
-
-names(data)[3]
-"mean" %in% names(data)[3]
-
 a<-agrep(c("mean"),names(data))
 b<-agrep(c("std"),names(data))
 cols<-c(a,b) #con angulos
@@ -51,4 +44,4 @@ cols<-cols[-(47:53)] #sin angulos
 data2 <- data[,c(1,2,cols)]
 head(data2)
 o <- order(data2[data2$subject])
-o <- data2[order(data2$subject),]
+o <- data2[order(data2$subject,data$activity),]
