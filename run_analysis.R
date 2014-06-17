@@ -18,15 +18,18 @@ features <- features[,2]
 ## test set
 x_test<-read.table("./UCI HAR Dataset/test/X_test.txt",as.is=T)
 y_test<-read.table("./UCI HAR Dataset/test/Y_test.txt",as.is=T)
+y_test_id<-merge(y_test,labels)
 subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",as.is=T)
 
 ## train set
 x_train<-read.table("./UCI HAR Dataset/train/X_train.txt",as.is=T)
 y_train<-read.table("./UCI HAR Dataset/train/Y_train.txt",as.is=T)
+y_train_id <- merge(y_train,labels)
 subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt",as.is=T)
 
 ## test 
 test <- cbind(subject_test,y_test,x_test)
+
 
 ## train
 train <- cbind(subject_train,y_train,x_train)
@@ -35,25 +38,20 @@ train <- cbind(subject_train,y_train,x_train)
 
 data <- rbind(test,train)
 names(data)<-c("subject","activity",features)
+
+a<- grep("(mean\\(\\)|std)",names(data))
+data <- data[,c(1,2,a)]
 names(data)<-gsub("\\()","",names(data))
 names(data)<-gsub("-","",names(data))
 
-a<- grep("(mean|std)",names(data))
-data <- data[,c(1,2,a)]
-b<- grep("meanFreq",names(data))
-data <- data[,-b]
+table(data[,2])
 
-a<-agrep("mean",names(data))
-b<-agrep("std",names(data))
-ab <-grep(mean|std,names(data))
-d<-agrep("meanFreq",names(data)) ##exclude mean frequencies
-e <- agrep("angle",names(data))  ##exclude angles
-cols <- c(a,b)[!c(a,b) %in% c(d,e)]
+data2<-merge(data,labels,by.x="activity",by.y="V1")
+data2<-data2[,c(2,1,69,3:68)]
 
 ## Keep right columns
 
-data2 <- data[,c(1,2,cols)]
-o <- data2[order(data2$subject,data$activity),]
+data2 <- data2[order(data2$subject,data$activity),]
 
 ## Nombres de variables
 
