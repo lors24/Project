@@ -34,11 +34,12 @@ train <- cbind(subject_train,y_train,x_train)
 ##complete dataset
 
 data <- rbind(test,train)
-names(data)<-c("subject","activity",features)
+names(data) <- c("subject","activity",features)
 
 a<- grep("(mean\\(\\)|std)",names(data))
 data <- data[,c(1,2,a)]
-names(data)<-gsub("[\\()|-]","",names(data))
+names(data)<-gsub("\\()-|-","_",names(data))
+names(data) <- gsub("\\()", "", names(data))
 names(data)<-tolower(names(data))
 
 #Pruebas
@@ -46,6 +47,13 @@ nombres<-names(data)
 nombres<-gsub("^f","freq_",nombres)
 nombres<-gsub("^t", "time_", nombres)
 nombres<-gsub("body|bodybody","body_",nombres)
+nombres <- gsub("gravity", "gravity_",nombres)
+nombres <- gsub("gyrojerk","gyro_jerk",nombres)
+nombres <- gsub("jerk","jerk_",nombres)
+nombres <- gsub("accmag", "acc_mag",nombres)
+nombres <- gsub("mean", "mean_",nombres)
+nombres <- gsub("std", "std_", nombres)
+
 
 table(data[,2])
 
@@ -58,6 +66,4 @@ data2 <- data2[order(data2$subject,data$activity),]
 
 ## Nombres de variables
 
-names(data)<-gsub("-","",names(data))
-names(data2)<-gsub("\\()","",names(data2))
 
