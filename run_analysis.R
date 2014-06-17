@@ -1,5 +1,5 @@
 getwd()
-setwd("./Documents/Coursera/Cleaning/Project2")
+setwd("/Users/loredp/Documents/Coursera/Cleaning/Project2")
 dir()
 
 ## The experiments have been carried out with a group of 30 volunteers
@@ -35,9 +35,17 @@ train <- cbind(subject_train,y_train,x_train)
 
 data <- rbind(test,train)
 names(data)<-c("subject","activity",features)
+names(data)<-gsub("\\()","",names(data))
+names(data)<-gsub("-","",names(data))
+
+a<- grep("(mean|std)",names(data))
+data <- data[,c(1,2,a)]
+b<- grep("meanFreq",names(data))
+data <- data[,-b]
 
 a<-agrep("mean",names(data))
 b<-agrep("std",names(data))
+ab <-grep(mean|std,names(data))
 d<-agrep("meanFreq",names(data)) ##exclude mean frequencies
 e <- agrep("angle",names(data))  ##exclude angles
 cols <- c(a,b)[!c(a,b) %in% c(d,e)]
@@ -46,3 +54,9 @@ cols <- c(a,b)[!c(a,b) %in% c(d,e)]
 
 data2 <- data[,c(1,2,cols)]
 o <- data2[order(data2$subject,data$activity),]
+
+## Nombres de variables
+
+names(data)<-gsub("-","",names(data))
+names(data2)<-gsub("\\()","",names(data2))
+
