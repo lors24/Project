@@ -18,18 +18,15 @@ features <- features[,2]
 ## test set
 x_test<-read.table("./UCI HAR Dataset/test/X_test.txt",as.is=T)
 y_test<-read.table("./UCI HAR Dataset/test/Y_test.txt",as.is=T)
-y_test_id<-merge(y_test,labels)
 subject_test<-read.table("./UCI HAR Dataset/test/subject_test.txt",as.is=T)
 
 ## train set
 x_train<-read.table("./UCI HAR Dataset/train/X_train.txt",as.is=T)
 y_train<-read.table("./UCI HAR Dataset/train/Y_train.txt",as.is=T)
-y_train_id <- merge(y_train,labels)
 subject_train<-read.table("./UCI HAR Dataset/train/subject_train.txt",as.is=T)
 
 ## test 
 test <- cbind(subject_test,y_test,x_test)
-
 
 ## train
 train <- cbind(subject_train,y_train,x_train)
@@ -41,8 +38,14 @@ names(data)<-c("subject","activity",features)
 
 a<- grep("(mean\\(\\)|std)",names(data))
 data <- data[,c(1,2,a)]
-names(data)<-gsub("\\()","",names(data))
-names(data)<-gsub("-","",names(data))
+names(data)<-gsub("[\\()|-]","",names(data))
+names(data)<-tolower(names(data))
+
+#Pruebas
+nombres<-names(data)
+nombres<-gsub("^f","freq_",nombres)
+nombres<-gsub("^t", "time_", nombres)
+nombres<-gsub("body|bodybody","body_",nombres)
 
 table(data[,2])
 
