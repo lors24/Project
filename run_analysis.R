@@ -8,7 +8,7 @@ dir()
 ## 30% (9) was selected for generated the test data
 
 ## activity labels (1-6)
-labels<-read.table("./UCI HAR Dataset/activity_labels.txt")
+labels<-read.table("./UCI HAR Dataset/activity_labels.txt", as.is = T)
 
 ## features (561)
 
@@ -32,38 +32,20 @@ test <- cbind(subject_test,y_test,x_test)
 train <- cbind(subject_train,y_train,x_train)
 
 ##complete dataset
-
 data <- rbind(test,train)
 names(data) <- c("subject","activity",features)
 
 a<- grep("(mean\\(\\)|std)",names(data))
 data <- data[,c(1,2,a)]
-names(data)<-gsub("\\()-|-","_",names(data))
-names(data) <- gsub("\\()", "", names(data))
-names(data)<-tolower(names(data))
+names(data) <- gsub("\\()|-","",names(data))
+names(data) <- gsub("mean", "Mean", names(data))
+names(data) <- gsub("std", "Std", names(data))
+names(data) <- gsub("^f","freq", names(data))
+names(data) <- gsub("^t", "time", names(data))
 
-#Pruebas
-nombres<-names(data)
-nombres<-gsub("^f","freq_",nombres)
-nombres<-gsub("^t", "time_", nombres)
-nombres<-gsub("body|bodybody","body_",nombres)
-nombres <- gsub("gravity", "gravity_",nombres)
-nombres <- gsub("gyrojerk","gyro_jerk",nombres)
-nombres <- gsub("jerk","jerk_",nombres)
-nombres <- gsub("accmag", "acc_mag",nombres)
-nombres <- gsub("mean", "mean_",nombres)
-nombres <- gsub("std", "std_", nombres)
+data$actId<-factor(x,labels=labels$V2)
+data<-data[,c(1,2,69,3:68)]
 
 
-table(data[,2])
-
-data2<-merge(data,labels,by.x="activity",by.y="V1")
-data2<-data2[,c(2,1,69,3:68)]
-
-## Keep right columns
-
-data2 <- data2[order(data2$subject,data$activity),]
-
-## Nombres de variables
 
 
