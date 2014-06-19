@@ -64,3 +64,8 @@ The `cbind` function is used to create 2 new data frames `train`and `test`corres
 ### Step 2: Extracts only the measurements on the mean and standard deviation for each measurement.
 
 1. With help of `grep` we check the column names to find the measuerments that refer to either the mean or the standard deviation. 
+
+
+    - how I processed the data
+        - what assumptions I made
+        - why I did things a certain way
