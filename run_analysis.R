@@ -42,6 +42,7 @@ data <- data[, c(1,2,69,3:68)]
 names(data) <- gsub("\\()|-","",names(data))
 names(data) <- gsub("mean", "Mean", names(data))
 names(data) <- gsub("std", "Std", names(data))
+names(data) <- gsub("BodyBody", "Body", names(data))
 names(data) <- gsub("^f","freq", names(data))
 names(data) <- gsub("^t", "time", names(data))
 data <- data[order(data$subject, data$activity), ]
@@ -53,5 +54,3 @@ library(reshape2)
 dataMelt <- melt(data, id=c("subject","actId"), measure.vars=names(data)[4:69])
 dat <- dcast(dataMelt, subject + actId ~ variable, mean)
 write.table(dat, file = "tidy_data.txt", col.names = T)
-
-
