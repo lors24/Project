@@ -1,5 +1,8 @@
 ## Reading files
 
+## The UCI HAR Dataset folder must be in the working dicrectory.
+## The as.is = T is included to avoid converting the character variables into factors.
+
 labels <- tolower(read.table("./UCI HAR Dataset/activity_labels.txt", as.is = T)[, 2])
 features <- read.table("./UCI HAR Dataset/features.txt", as.is = T)[,2]
 
