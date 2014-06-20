@@ -91,5 +91,5 @@ A new factor variable named actId is created using the information from the colu
 
 2. Using `dcast` a new data frame is created showing the mean of each of the measurement variables for each activity and each subject. 
 
-3. A new file containing the resulting data frame is created using the `write.table` function. 
+3. A new file containing the resulting data frame is created using the `write.table` function. Although the new columns refer to the mean of each of the measurement variables for each activity and subject, the names of the columns are not changed to avoid making the variable names longer than they are. 
 

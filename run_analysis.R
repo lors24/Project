@@ -62,5 +62,4 @@ data <- data[order(data$subject, data$activity), ]
 library(reshape2)
 dataMelt <- melt(data, id=c("subject","actId"), measure.vars=names(data)[4:69])
 dat <- dcast(dataMelt, subject + actId ~ variable, mean)
-
 write.table(dat, file = "tidy_data.txt", col.names = T)

@@ -23,7 +23,15 @@ The data has been normalized by dividing by the range, hence, the units are canc
 
 1. subject: A number from 1 to 30 indicating the subject 
 
-2. actId:        
+2. actId: Indicates the activity performed during the measurements
+    * walking
+    * walking upstairs
+    * walking downstairs 
+    * sitting
+    * standing
+    * laying
+    
+From column 3 and until 68, the mean of the variable indicated is shown. The name mean was excluded from the name of the variable to avoid making it longer and to avoid confusion with the variables that already refered to the mean or standard deviation. 
 
 3. timeBodyAccMeanX: 
     * domain: Time
