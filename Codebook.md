@@ -1,19 +1,29 @@
-### Variables
+## CODEBOOK
 
-1. subject:        
-2. actId:       
+### Data
 
+The original data was obtained from [http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones#] (http://archive.ics.uci.edu/ml/datasets/Human+Activity+Recognition+Using+Smartphones#)
 
-The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals tAcc-XYZ and tGyro-XYZ. These time domain signals were captured at a constant rate of 50 Hz. Then they were filtered  to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (tBodyAcc-XYZ and tGravityAcc-XYZ). 
+### Variables  
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). Also the magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
+The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals. These time domain signals were captured at a constant rate of 50 Hz. Then they were filtered  to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (timeBodyAcc and timeGravityAcc for each of the axis (X,Y and Z)). 
+
+Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). 
+
+The magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
 
 Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
 
 These signals were used to estimate variables of the feature vector for each pattern:  
 '-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
-the data has been scaled by dividing by the range, and when you divide units by the same units, the units are cancelled.
+The data has been normalized by dividing by the range, hence, the units are cancelled.
+
+### Columns
+
+1. subject: A number from 1 to 30 indicating the subject 
+
+2. actId:        
 
 3. timeBodyAccMeanX: 
     * domain: Time
@@ -610,7 +620,3 @@ the data has been scaled by dividing by the range, and when you divide units by 
     * statistics: Standard Deviation
     * axis: 
 
-      - what variables I used
-      - names of columns and why
-     -  units of data if known
-     - reference or link to original data info

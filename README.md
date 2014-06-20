@@ -1,7 +1,5 @@
 ## Course Project
 
-
-
 ### Obtaining the data
 
 1. Download the data from [https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip] (https://d396qusza40orc.cloudfront.net/getdata%2Fprojectfiles%2FUCI%20HAR%20Dataset.zip). 
@@ -49,7 +47,7 @@ First of all we need to read and store the relevant files into R. The script use
 
 - subject_train: 'train/subject_train.txt'
 
-When creating the labels and features data frames only the second column of the original file is taken, since we are only interested in storing the character values to use them in future steps. Also, since the labels are all uppercase, they are converted to all lowercase to improve the presentation of the final dataset.
+When creating the labels and features data frames only the second column of the original file is taken, since we are only interested in storing the character values to use them in future steps. Also, since the labels are all uppercase, they are converted to lowercase to improve the presentation of the final dataset.
 
 ### Combining datasets
 
@@ -63,9 +61,35 @@ The `cbind` function is used to create 2 new data frames `train`and `test`corres
 
 ### Step 2: Extracts only the measurements on the mean and standard deviation for each measurement.
 
-1. With help of `grep` we check the column names to find the measuerments that refer to either the mean or the standard deviation. 
+1. With help of `grep` we check the column names to find the variables that refer to either the mean or the standard deviation of the measurements. The columns that refered to the mean frequency (meanFreq) and the angles were excluded. 
 
+### Step 3: Uses descriptive activity names to name the activities in the data set
 
-    - how I processed the data
-        - what assumptions I made
-        - why I did things a certain way
+A new factor variable named actId is created using the information from the column activity. The labels of each of the levels is indicated bye the information contained in the vector `labels`. The new column is added to the dataset. The values of this new column and their corresponding values of the activity column are as follow: 
+
+1: walking, 2: walking_upstairs, 3: walking downstairs, 4: sitting, 5: standing, 6: laying
+
+### Step 4: Appropriately labels the data set with descriptive variable names. 
+
+* The names of the variable names were modified in order to make them easy to read and work with. Camel case was chosen for the varible names for two reasons:
+
+    * The original names already used camel case (although some modifications were needed)
+    
+    * Using all lowercase or all uppercase would make the names hard to read since the variable names are composed by many words. Another alternative might have been to use underscores or points to separte the words in the variable names, but it would make the names very large and hart to manipulate.
+
+* Symbols like "()" and "-" were removed to avoid having troubles while manipulating the data. 
+
+* The fragment of the variable names that included the phrase "BodyBody" were replace by "Body" since the repetition of the word was considered a possible typo.
+
+* The initial letter of the variable name (t and f) were replaced by time and freq respectively, to make clearer the domain that the variable is refering to. 
+
+* Finally, the data set is ordered according first to the subject id and finally to the activity. 
+
+### Step 5: Creates a second, independent tidy data set with the average of each variable for each activity and each subject. 
+
+1. Using the library `reshape2` the data is melted into a long data frame with the subject and activy as id, and the rest of the columns are used as the measurement variables.
+
+2. Using `dcast` a new data frame is created showing the mean of each of the measurement variables for each activity and each subject. 
+
+3. A new file containing the resulting data frame is created using the `write.table` function. 
+

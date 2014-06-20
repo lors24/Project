@@ -35,9 +35,15 @@ data <- data[, c(1,2,a)]
 ## Step 3: Uses descriptive activity names to name the activities in the data set
 
 data$actId <- factor(data$activity, labels=labels)
+
+## The columns are reordered so that the new column is shown after the activity column. 
+
 data <- data[, c(1,2,69,3:68)]
 
 ## Step 4: Appropriately labels the data set with descriptive variable names. 
+
+## Symbols like "()" and "-" are removed from the variable names. 
+## Camel case is used to name the variables.
 
 names(data) <- gsub("\\()|-","",names(data))
 names(data) <- gsub("mean", "Mean", names(data))
@@ -45,6 +51,9 @@ names(data) <- gsub("std", "Std", names(data))
 names(data) <- gsub("BodyBody", "Body", names(data))
 names(data) <- gsub("^f","freq", names(data))
 names(data) <- gsub("^t", "time", names(data))
+
+## The data set is ordered according to the subject and then to the activity performed.
+
 data <- data[order(data$subject, data$activity), ]
 
 ## Step 5: Creates a second, independent tidy data set with the average
@@ -53,4 +62,5 @@ data <- data[order(data$subject, data$activity), ]
 library(reshape2)
 dataMelt <- melt(data, id=c("subject","actId"), measure.vars=names(data)[4:69])
 dat <- dcast(dataMelt, subject + actId ~ variable, mean)
+
 write.table(dat, file = "tidy_data.txt", col.names = T)
