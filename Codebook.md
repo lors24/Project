@@ -6,16 +6,7 @@ The original data was obtained from [http://archive.ics.uci.edu/ml/datasets/Huma
 
 ### Variables  
 
-The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals. These time domain signals were captured at a constant rate of 50 Hz. Then they were filtered  to remove noise. Similarly, the acceleration signal was then separated into body and gravity acceleration signals (timeBodyAcc and timeGravityAcc for each of the axis (X,Y and Z)). 
 
-Subsequently, the body linear acceleration and angular velocity were derived in time to obtain Jerk signals (tBodyAccJerk-XYZ and tBodyGyroJerk-XYZ). 
-
-The magnitude of these three-dimensional signals were calculated using the Euclidean norm (tBodyAccMag, tGravityAccMag, tBodyAccJerkMag, tBodyGyroMag, tBodyGyroJerkMag). 
-
-Finally a Fast Fourier Transform (FFT) was applied to some of these signals producing fBodyAcc-XYZ, fBodyAccJerk-XYZ, fBodyGyro-XYZ, fBodyAccJerkMag, fBodyGyroMag, fBodyGyroJerkMag. (Note the 'f' to indicate frequency domain signals). 
-
-These signals were used to estimate variables of the feature vector for each pattern:  
-'-XYZ' is used to denote 3-axial signals in the X, Y and Z directions.
 
 The data has been normalized by dividing by the range, hence, the units are cancelled.
 
@@ -31,8 +22,22 @@ The data has been normalized by dividing by the range, hence, the units are canc
     * standing
     * laying
     
-From column 3 and until 68, the mean of the variable indicated is shown. The name mean was excluded from the name of the variable to avoid making it longer and to avoid confusion with the variables that already refered to the mean or standard deviation. 
+From column 3 and until 68, the columns represent the mean for each subject and each activity of the variable they are refering to. For example column no. 3 timeBodyAccMeanX is actually the mean for each subject and each activity of the mean time in the accelerometer coming from the body in the X-axis. Also, to avoid explaining each column in this way, a specific format was chosen to show what the variable is referring to. There are 7 arguments:
 
+    1. domain: It can be either time or frequency. The time domain signals were captued at a constant rate of 50 Hz, they they were filtered to remove noise. The frequency measurements result from applying a Fast Fourier Transform (FFT) to some of these signals. 
+    
+    2. source: The acceleration signla was separated into body and gravity acceleration signals for each of the axis (X, Y and Z)
+    
+    3. sensor: The features selected for this database come from the accelerometer and gyroscope 3-axial raw signals. 
+    
+    4. jerk: the body linear acceleration and angular velocity were derived in time to obtain Jerk signals
+    
+    5. magnitude: The magnitude of these three-dimensional signals were calculated using the Euclidean norm
+
+    6. statistics: It can be either the mean or the standard deviation of the specific feature. 
+    
+    7. axis: The signals were separated for each of the 3 axix (X, Y and Z). Some of the features don't refer to a specific axis but to the general measure. 
+    
 3. timeBodyAccMeanX: 
     * domain: Time
     * source: Body
